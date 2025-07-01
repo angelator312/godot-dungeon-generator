@@ -1,4 +1,4 @@
-extends TileMapLayer
+extends Node2D
 
 @export var parameters = {
 	MAX_ROOM_SIZE = Vector2(25, 20),
@@ -21,7 +21,7 @@ func _ready():
 	rng.randomize()
 	
 	data = DungeonGenerator.new(rng, parameters).generate_dungeon()
-	DungeonPlacer.new(self).place_dungeon(data)
+	DungeonPlacer.new($TileMapLayer).place_dungeon(data)
 
 #func map_rect_to_world(rect):
 	#return Rect2(map_to_local(rect.position), map_to_world(rect.size))
