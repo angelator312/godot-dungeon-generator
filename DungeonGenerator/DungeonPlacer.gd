@@ -38,6 +38,11 @@ func place_room(rect: Rect2i) -> void:
 	place_floor(rect)
 	place_h_walls(rect)
 	place_v_walls(rect)
+	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.position.y),SOURCE_ID_Walls,right_down)
+	tilemap_walls.set_cell(Vector2i(rect.end.x,rect.position.y),SOURCE_ID_Walls,left_down)
+	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.end.y),SOURCE_ID_Walls,right_up)
+	tilemap_walls.set_cell(Vector2i(rect.end.x,rect.end.y),SOURCE_ID_Walls,left_up)
+
 
 func place_h_tunnel(rect: Rect2i) -> void:
 	place_floor(rect)
