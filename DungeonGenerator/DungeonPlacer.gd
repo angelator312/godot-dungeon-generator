@@ -1,15 +1,17 @@
 class_name DungeonPlacer
 
-var tilemap: TileMapLayer
+var tilemap_walls: TileMapLayer
+var tilemap_floor: TileMapLayer
 var floor_index: Vector2i=Vector2i(0,0)
 var wall_vector_up: Vector2i=Vector2i(0,1)
 var wall_vector_right: Vector2i=Vector2i(2,3)
 const SOURCE_ID_Floor=1
 const SOURCE_ID_Walls=0
-func _init(_tilemap):
-	tilemap = _tilemap
-	#floor_index = tilemap.tile_set.find_tile_by_name("Floor")
-	#wall_vector_up = tilemap.tile_set.find_tile_by_name("Wall")
+func _init(_tilemap_walls:TileMapLayer,_tilemap_floor:TileMapLayer):
+	tilemap_walls = _tilemap_walls
+	tilemap_floor = _tilemap_floor
+	#floor_index = tilemap_walls.tile_set.find_tile_by_name("Floor")
+	#wall_vector_up = tilemap_walls.tile_set.find_tile_by_name("Wall")
 
 func place_dungeon(dungeon: DungeonData) -> void:
 	for slot in dungeon.rooms:
@@ -40,18 +42,18 @@ func place_v_tunnel(rect: Rect2) -> void:
 func place_floor(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
 		for y in range(rect.position.y, rect.end.y + 1):
-			tilemap.set_cell(Vector2i(x, y),SOURCE_ID_Floor, floor_index)
+			tilemap_floor.set_cell(Vector2i(x, y),SOURCE_ID_Floor, floor_index)
 
 func place_h_walls(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
 		# The up walls
-		tilemap.set_cell(Vector2i(x, rect.position.y),SOURCE_ID_Walls, wall_vector_right)
+		tilemap_walls.set_cell(Vector2i(x, rect.position.y),SOURCE_ID_Walls, wall_vector_right)
 		# The down walls
-		tilemap.set_cell(Vector2i(x, rect.end.y),SOURCE_ID_Walls, wall_vector_right)
+		tilemap_walls.set_cell(Vector2i(x, rect.end.y),SOURCE_ID_Walls, wall_vector_right)
 
 func place_v_walls(rect: Rect2) -> void:
 	for y in range(rect.position.y, rect.end.y + 1):
 		# The left walls
-		tilemap.set_cell(Vector2i(rect.position.x, y),SOURCE_ID_Walls, wall_vector_up)
+		tilemap_walls.set_cell(Vector2i(rect.position.x, y),SOURCE_ID_Walls, wall_vector_up)
 		# The right walls
-		tilemap.set_cell(Vector2i(rect.end.x, y), SOURCE_ID_Walls,wall_vector_up)
+		tilemap_walls.set_cell(Vector2i(rect.end.x, y), SOURCE_ID_Walls,wall_vector_up)

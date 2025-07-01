@@ -21,7 +21,7 @@ func _ready():
 	rng.randomize()
 	
 	data = DungeonGenerator.new(rng, parameters).generate_dungeon()
-	DungeonPlacer.new($WallLayer).place_dungeon(data)
+	DungeonPlacer.new($WallLayer,$FloorLayer).place_dungeon(data)
 
 #func map_rect_to_world(rect):
 	#return Rect2(map_to_local(rect.position), map_to_world(rect.size))

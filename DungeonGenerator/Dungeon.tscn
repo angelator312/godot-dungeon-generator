@@ -11,6 +11,7 @@ script = ExtResource("1_rbtac")
 script = ExtResource("4_yi4w0")
 
 [node name="WallLayer" type="TileMapLayer" parent="."]
+z_index = 1
 tile_set = ExtResource("1_wx7cm")
 
 [node name="FloorLayer" type="TileMapLayer" parent="."]
