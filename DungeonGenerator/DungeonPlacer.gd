@@ -44,10 +44,14 @@ func place_floor(rect: Rect2) -> void:
 
 func place_h_walls(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
+		# The up walls
 		tilemap.set_cell(Vector2i(x, rect.position.y),SOURCE_ID_Walls, wall_vector_right)
+		# The down walls
 		tilemap.set_cell(Vector2i(x, rect.end.y),SOURCE_ID_Walls, wall_vector_right)
 
 func place_v_walls(rect: Rect2) -> void:
 	for y in range(rect.position.y, rect.end.y + 1):
+		# The left walls
 		tilemap.set_cell(Vector2i(rect.position.x, y),SOURCE_ID_Walls, wall_vector_up)
+		# The right walls
 		tilemap.set_cell(Vector2i(rect.end.x, y), SOURCE_ID_Walls,wall_vector_up)
