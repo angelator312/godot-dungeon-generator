@@ -74,6 +74,10 @@ func place_h_walls(rect: Rect2i) -> void:
 		# The down walls
 		pos=Vector2i(x, rect.end.y)
 		tilemap_walls.set_cell(pos,SOURCE_ID_Walls, wall_vector_right)
+	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.position.y),SOURCE_ID_Walls,right_up)
+	tilemap_walls.set_cell(Vector2i(rect.end.x,rect.position.y),SOURCE_ID_Walls,left_up)
+	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.end.y),SOURCE_ID_Walls,right_down)
+	tilemap_walls.set_cell(Vector2i(rect.end.x,rect.end.y),SOURCE_ID_Walls,left_down)
 
 func place_v_walls(rect: Rect2i) -> void:
 	for y in range(rect.position.y, rect.end.y + 1):
