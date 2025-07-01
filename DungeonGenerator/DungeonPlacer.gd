@@ -5,6 +5,9 @@ var tilemap_floor: TileMapLayer
 var floor_index: Vector2i=Vector2i(0,0)
 var wall_vector_up: Vector2i=Vector2i(0,1)
 var wall_vector_right: Vector2i=Vector2i(2,3)
+# ...
+#   .
+var left_down:Vector2i=Vector2i(3,0)
 const SOURCE_ID_Floor=1
 const SOURCE_ID_Walls=0
 func _init(_tilemap_walls:TileMapLayer,_tilemap_floor:TileMapLayer):
@@ -26,12 +29,12 @@ func place_dungeon(dungeon: DungeonData) -> void:
 		else:
 			place_h_tunnel(tunnel)
 
-func place_room(rect: Rect2) -> void:
+func place_room(rect: Rect2i) -> void:
 	place_floor(rect)
 	place_h_walls(rect)
 	place_v_walls(rect)
 
-func place_h_tunnel(rect: Rect2) -> void:
+func place_h_tunnel(rect: Rect2i) -> void:
 	place_floor(rect)
 	place_h_walls(rect)
 	for y in range(rect.position.y+1,rect.end.y):
@@ -40,7 +43,7 @@ func place_h_tunnel(rect: Rect2) -> void:
 		# Right walls cleaned
 		tilemap_walls.set_cell(Vector2i(rect.end.x,y))
 
-func place_v_tunnel(rect: Rect2) -> void:
+func place_v_tunnel(rect: Rect2i) -> void:
 	place_floor(rect)
 	place_v_walls(rect)
 	for x in range(rect.position.x+1,rect.end.x):
@@ -48,14 +51,14 @@ func place_v_tunnel(rect: Rect2) -> void:
 		tilemap_walls.set_cell(Vector2i(x,rect.position.y))
 		# Down walls cleaned
 		tilemap_walls.set_cell(Vector2i(x,rect.end.y))
-
+	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.position.y),SOURCE_ID_Walls,left_down)
 
 func place_floor(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
 		for y in range(rect.position.y, rect.end.y + 1):
 			tilemap_floor.set_cell(Vector2i(x, y),SOURCE_ID_Floor, floor_index)
 
-func place_h_walls(rect: Rect2) -> void:
+func place_h_walls(rect: Rect2i) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
 		# The up walls
 		var pos:=Vector2i(x, rect.position.y)
@@ -64,7 +67,7 @@ func place_h_walls(rect: Rect2) -> void:
 		pos=Vector2i(x, rect.end.y)
 		tilemap_walls.set_cell(pos,SOURCE_ID_Walls, wall_vector_right)
 
-func place_v_walls(rect: Rect2) -> void:
+func place_v_walls(rect: Rect2i) -> void:
 	for y in range(rect.position.y, rect.end.y + 1):
 		# The left walls
 		var pos=Vector2i(rect.position.x, y)
