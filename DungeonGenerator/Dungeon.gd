@@ -1,6 +1,6 @@
-extends TileMap
+extends TileMapLayer
 
-export var parameters = {
+@export var parameters = {
 	MAX_ROOM_SIZE = Vector2(25, 20),
 	MIN_ROOM_SIZE = Vector2(15, 12),
 
@@ -17,11 +17,11 @@ var rng = RandomNumberGenerator.new()
 var data: DungeonData
 
 func _ready():
-	VisualServer.set_default_clear_color(Color.black)
+	RenderingServer.set_default_clear_color(Color.BLACK)
 	rng.randomize()
 	
 	data = DungeonGenerator.new(rng, parameters).generate_dungeon()
 	DungeonPlacer.new(self).place_dungeon(data)
 
-func map_rect_to_world(rect):
-	return Rect2(map_to_world(rect.position), map_to_world(rect.size))
+#func map_rect_to_world(rect):
+	#return Rect2(map_to_local(rect.position), map_to_world(rect.size))
