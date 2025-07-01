@@ -8,6 +8,7 @@ var wall_vector_right: Vector2i=Vector2i(2,3)
 # ...
 #   .
 var left_down:Vector2i=Vector2i(3,0)
+var right_down:Vector2i=Vector2i(1,0)
 const SOURCE_ID_Floor=1
 const SOURCE_ID_Walls=0
 func _init(_tilemap_walls:TileMapLayer,_tilemap_floor:TileMapLayer):
@@ -52,6 +53,7 @@ func place_v_tunnel(rect: Rect2i) -> void:
 		# Down walls cleaned
 		tilemap_walls.set_cell(Vector2i(x,rect.end.y))
 	tilemap_walls.set_cell(Vector2i(rect.position.x,rect.position.y),SOURCE_ID_Walls,left_down)
+	tilemap_walls.set_cell(Vector2i(rect.end.x,rect.position.y),SOURCE_ID_Walls,right_down)
 
 func place_floor(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
