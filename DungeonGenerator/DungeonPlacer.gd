@@ -43,6 +43,12 @@ func place_h_tunnel(rect: Rect2) -> void:
 func place_v_tunnel(rect: Rect2) -> void:
 	place_floor(rect)
 	place_v_walls(rect)
+	for x in range(rect.position.x+1,rect.end.x):
+		# Up walls cleaned
+		tilemap_walls.set_cell(Vector2i(x,rect.position.y))
+		# Down walls cleaned
+		tilemap_walls.set_cell(Vector2i(x,rect.end.y))
+
 
 func place_floor(rect: Rect2) -> void:
 	for x in range(rect.position.x, rect.end.x + 1):
